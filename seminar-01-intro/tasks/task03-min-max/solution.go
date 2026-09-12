@@ -11,5 +11,18 @@ package minmax
 //
 //	for _, v := range nums { ... }
 func MinMax(nums []int) (int, int, bool) {
-	panic("TODO: реализуйте MinMax")
+	if len(nums) == 0 {
+		return 0, 0, false
+	}
+
+	mn, mx := nums[0], nums[0]
+	for _, v := range nums {
+		if v > mx {
+			mx = v
+		}
+		if v < mn {
+			mn = v
+		}
+	}
+	return mn, mx, true
 }

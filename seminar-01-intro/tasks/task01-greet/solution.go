@@ -5,5 +5,8 @@ package greet
 //
 // Подсказка: строки склеиваются оператором +.
 func Greet(name string) string {
-	panic("TODO: реализуйте Greet")
+	if len(name) == 0 {
+		name = "мир"
+	}
+	return "Привет, " + name + "!"
 }

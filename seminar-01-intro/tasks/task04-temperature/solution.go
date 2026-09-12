@@ -1,5 +1,7 @@
 package temperature
 
+import "math"
+
 // CToF переводит градусы Цельсия в градусы Фаренгейта по формуле
 //
 //	F = C * 9/5 + 32
@@ -7,7 +9,7 @@ package temperature
 // Внимание: 9/5 в Go — это ЦЕЛОЧИСЛЕННОЕ деление, равное 1.
 // Считайте в float64.
 func CToF(c float64) float64 {
-	panic("TODO: реализуйте CToF")
+	return c*9.0/5.0 + 32
 }
 
 // RoundToInt округляет температуру до ближайшего целого.
@@ -16,5 +18,5 @@ func CToF(c float64) float64 {
 // Подсказка: math.Round возвращает float64, а функция должна вернуть int.
 // Неявных преобразований в Go нет — приведение пишем руками.
 func RoundToInt(c float64) int {
-	panic("TODO: реализуйте RoundToInt")
+	return int(math.Round(c))
 }

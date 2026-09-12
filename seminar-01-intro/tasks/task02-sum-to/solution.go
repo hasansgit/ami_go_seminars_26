@@ -8,6 +8,9 @@ package sumto
 //
 // Подсказка: начиная с Go 1.22 работает форма `for i := range n`,
 // которая пробегает i = 0, 1, ..., n-1.
-func SumTo(n int) int {
-	panic("TODO: реализуйте SumTo")
+func SumTo(n int) (sum int) {
+	for i := range n + 1 {
+		sum += i
+	}
+	return
 }
