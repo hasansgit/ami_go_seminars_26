@@ -6,18 +6,28 @@
 ## Устройство задачи
 
 ```
-seminar-02-basics/tasks/task02-reverse/
+seminar-02-language/tasks/task01-divmod/
 ├── solution.go        ← правите ВЫ: здесь заготовки функций
+├── types.go           ← НЕ ТРОГАЕМ: типы и ошибки, на которые рассчитывает тест
 └── solution_test.go   ← НЕ ТРОГАЕМ: это тесты, они же условие задачи
 ```
 
-В `solution.go` лежат функции с готовыми сигнатурами и телом:
+Файла `types.go` может и не быть — он появляется там, где у задачи есть
+собственные типы или sentinel-ошибки.
+
+В `solution.go` лежат функции с готовыми сигнатурами, телом-заглушкой
+и условием в doc-комментарии:
 
 ```go
-func Reverse(s string) string {
-	panic("TODO: реализуйте Reverse")
+// DivMod возвращает частное и остаток от деления dividend на divisor.
+// При divisor == 0 возвращает нулевые частное и остаток и ErrDivisionByZero.
+func DivMod(dividend, divisor int) (quotient, remainder int, err error) {
+	panic("TODO: реализуйте DivMod")
 }
 ```
+
+Отдельного файла с условием нет: условие — это doc-комментарий плюс тест.
+Разбор задач семинара — в `tasks/README.md`.
 
 `panic(...)` — это «функция ещё не написана». Пока он на месте, тест падает.
 Ваша работа — заменить его на реализацию.
@@ -26,36 +36,36 @@ func Reverse(s string) string {
 
 ```bash
 # 1. Запустить тесты одной задачи
-go test ./seminar-02-basics/tasks/task02-reverse
+go test ./seminar-02-language/tasks/task01-divmod
 
 # 2. Посмотреть, какие именно случаи упали
-go test -v ./seminar-02-basics/tasks/task02-reverse
+go test -v ./seminar-02-language/tasks/task01-divmod
 
 # 3. Запустить один конкретный подтест
-go test -run 'TestReverse/кириллица' ./seminar-02-basics/tasks/task02-reverse
+go test -run 'TestDivMod/есть_остаток' ./seminar-02-language/tasks/task01-divmod
 
 # 4. Прогнать все задачи семинара
-go test ./seminar-02-basics/tasks/...
+go test ./seminar-02-language/tasks/...
 ```
 
 То же самое короче, через `make` (см. `make help`):
 
 ```bash
 make test-02                                          # задачи семинара 2
-make task T=seminar-02-basics/tasks/task02-reverse    # одна задача, подробно
+make task T=seminar-02-language/tasks/task01-divmod    # одна задача, подробно
 ```
 
 Читайте вывод теста целиком: там написано, что подали на вход, что получили
 и что ожидалось.
 
 ```
---- FAIL: TestReverse/кириллица (0.00s)
-    solution_test.go:24: Reverse("Привет") = "тевирП\xd0", ожидалось "тевирП"
+--- FAIL: TestDivMod/есть_остаток (0.00s)
+    solution_test.go:31: DivMod(17, 5) = (3, 0), ожидалось (3, 2)
 ```
 
 ## Правила сдачи
 
-1. **Менять `solution_test.go` нельзя.** Если тест кажется вам неправильным —
+1. **Менять `solution_test.go` и `types.go` нельзя.** Если тест кажется вам неправильным —
    напишите преподавателю, это либо ошибка в задаче, либо непонятое условие.
 2. **Сигнатуры функций менять нельзя** — иначе тесты не скомпилируются.
 3. Добавлять свои вспомогательные функции в `solution.go` **можно и нужно**,
@@ -75,7 +85,7 @@ make test     # тесты задач
 ```bash
 gofmt -l .    # печатает файлы с неправильным форматированием — должно быть пусто
 go vet ./...  # ищет подозрительные конструкции — должно быть пусто
-go test ./seminar-01-intro/tasks/... ./seminar-02-basics/tasks/...
+go test ./seminar-01-intro/tasks/... ./seminar-02-language/tasks/...
 ```
 
 Тесты задач, за которые вы ещё не брались, падают с `panic: TODO` — это

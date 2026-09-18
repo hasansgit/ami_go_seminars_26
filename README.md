@@ -19,7 +19,7 @@ make doctor
 | # | Тема | Материалы |
 |---|---|---|
 | 1 | Введение в Go | [конспект](seminar-01-intro/README.md) · [примеры](seminar-01-intro/examples) · [задачи](seminar-01-intro/tasks) |
-| 2 | Базовые конструкции языка | [конспект](seminar-02-basics/README.md) · [примеры](seminar-02-basics/examples) · [задачи](seminar-02-basics/tasks) |
+| 2 | Функции, типы и память | [конспект](seminar-02-language/theory.md) · [примеры](seminar-02-language/examples) · [задачи](seminar-02-language/tasks) |
 
 ## Как этим пользоваться
 
@@ -31,9 +31,9 @@ make doctor
 
 ```
 seminar-NN-тема/
-├── README.md      конспект семинара с таймингом
+├── README.md      конспект семинара (у семинара 2 он называется theory.md)
 ├── examples/      код, который разбирается на паре (запускается go run)
-└── tasks/         задачи: solution.go правите вы, solution_test.go — нет
+└── tasks/         задачи: solution.go правите вы, solution_test.go и types.go — нет
 ```
 
 Соглашения, по которым собраны материалы (именование, скелет конспекта,

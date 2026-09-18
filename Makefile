@@ -31,17 +31,22 @@ test-%: ## Тесты задач одного семинара: make test-01
 		test -n "$$d" || { echo "Нет семинара с номером $*"; exit 1; }; \
 		go test ./$$d/tasks/...
 
-task: ## Одна задача подробно: make task T=seminar-02-basics/tasks/task02-reverse
+task: ## Одна задача подробно: make task T=seminar-02-language/tasks/task01-divmod
 	@test -n "$(T)" || { echo "Укажите задачу: make task T=<путь>"; exit 1; }
 	go test -v ./$(T)
 
 fmt: ## Отформатировать код
 	gofmt -w .
 
+# go vet и go build идут по примерам и задачам, а не по ./... : каталог
+# solutions/ (эталоны преподавателя, в .gitignore) на месте не собирается —
+# у эталона нет рядом types.go задачи. Проверяют эталон подменой, см.
+# solutions/README.md. У студента каталога solutions/ нет вовсе, и для него
+# go vet ./... по-прежнему эквивалентен.
 lint: ## Форматирование и go vet — перед сдачей должно быть пусто
 	@out=$$(gofmt -l .); test -z "$$out" || { echo "Не отформатировано:"; echo "$$out"; exit 1; }
-	go vet ./...
+	go vet $(EXAMPLES) $(TASKS)
 
 check: lint ## Материалы целы: форматирование, vet, примеры компилируются и проходят тесты
-	go build ./...
+	go build $(EXAMPLES) $(TASKS)
 	go test $(EXAMPLES)
