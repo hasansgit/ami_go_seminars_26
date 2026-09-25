@@ -20,6 +20,7 @@ make doctor
 |---|---|---|
 | 1 | Введение в Go | [конспект](seminar-01-intro/README.md) · [примеры](seminar-01-intro/examples) · [задачи](seminar-01-intro/tasks) |
 | 2 | Функции, типы и память | [конспект](seminar-02-language/theory.md) · [примеры](seminar-02-language/examples) · [задачи](seminar-02-language/tasks) |
+| 3 | Коллекции, строки и данные | [задачи](seminar-03-collections/tasks) |
 
 ## Как этим пользоваться
 
