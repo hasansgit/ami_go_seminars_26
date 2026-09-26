@@ -11,9 +11,11 @@
 .DEFAULT_GOAL := help
 .PHONY: help doctor test fmt lint check
 
+# Берём только существующие каталоги: у семинара может не быть examples/,
+# а go vet по несуществующему пути завершается ошибкой.
 SEMINARS := $(sort $(wildcard seminar-*))
-EXAMPLES := $(patsubst %,./%/examples/...,$(SEMINARS))
-TASKS    := $(patsubst %,./%/tasks/...,$(SEMINARS))
+EXAMPLES := $(patsubst %,./%/...,$(sort $(wildcard seminar-*/examples)))
+TASKS    := $(patsubst %,./%/...,$(sort $(wildcard seminar-*/tasks)))
 
 help: ## Показать список команд
 	@grep -E '^[a-zA-Z0-9_%-]+:.*?## .*$$' $(MAKEFILE_LIST) \
