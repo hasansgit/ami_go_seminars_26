@@ -1,5 +1,11 @@
 package stringify
 
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
 // Stringify возвращает строковое представление произвольного значения.
 //
 // Правила представления по типу значения:
@@ -13,5 +19,22 @@ package stringify
 //     например []string{"a", "b"} — это "[a, b]", а пустой слайс — "[]";
 //   - значение любого другого типа — "<unknown>".
 func Stringify(v any) string {
-	panic("TODO: реализуйте Stringify")
+	switch x := v.(type) {
+	case nil:
+		return "<nil>"
+	case fmt.Stringer:
+		return x.String()
+	case string:
+		return x
+	case bool:
+		return strconv.FormatBool(x)
+	case int:
+		return strconv.Itoa(x)
+	case float64:
+		return fmt.Sprintf("%.2f", x)
+	case []string:
+		return "[" + strings.Join(x, ", ") + "]"
+	default:
+		return "<unknown>"
+	}
 }

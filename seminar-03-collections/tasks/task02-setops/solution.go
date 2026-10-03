@@ -12,7 +12,26 @@ package setops
 // даже если ни один элемент a не входит в b. b, равный nil, означает
 // пустое множество.
 func Intersect(a, b []string) []string {
-	panic("TODO: реализуйте Intersect")
+	if a == nil {
+		return nil
+	}
+
+	res := make([]string, 0)
+
+	mp := make(map[string]struct{})
+
+	for _, val := range a {
+		mp[val] = struct{}{}
+	}
+
+	for _, val := range b {
+		_, ok := mp[val]
+		if ok {
+			res = append(res, val)
+		}
+	}
+
+	return res
 }
 
 // Difference возвращает элементы a, которых нет в b.
@@ -27,5 +46,24 @@ func Intersect(a, b []string) []string {
 // даже если в нём нет элементов. b, равный nil, означает пустое
 // множество.
 func Difference(a, b []string) []string {
-	panic("TODO: реализуйте Difference")
+	if a == nil {
+		return nil
+	}
+
+	res := make([]string, 0)
+
+	mp := make(map[string]struct{})
+
+	for _, val := range a {
+		mp[val] = struct{}{}
+	}
+
+	for _, val := range b {
+		_, ok := mp[val]
+		if !ok {
+			res = append(res, val)
+		}
+	}
+
+	return res
 }

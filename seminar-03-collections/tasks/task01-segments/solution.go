@@ -12,7 +12,29 @@ package segments
 // Для не-nil пустого data результат — не-nil пустой [][]int и nil ошибка.
 // Для непустого data число кусков в результате равно ceil(len(data)/size).
 func Split(data []int, size int) ([][]int, error) {
-	panic("TODO: реализуйте Split")
+	res := make([][]int, 0)
+	if len(data) == 0 && data != nil {
+		return res, nil
+	}
+	if size <= 0 {
+		return nil, ErrInvalidSize
+	}
+	if data == nil {
+		return nil, nil
+	}
+
+	ofs := 0
+
+	for ofs+size < len(data) {
+		sl := data[ofs : ofs+size : ofs+size]
+		res = append(res, sl)
+		ofs += size
+	}
+
+	sl := data[ofs:]
+	res = append(res, sl)
+
+	return res, nil
 }
 
 // Cut удаляет из data полуинтервал [from, to) и возвращает slice header
@@ -29,5 +51,19 @@ func Split(data []int, size int) ([][]int, error) {
 // случай from == to == 0, результат которого — (nil, nil). Для не-nil data
 // результат не-nil, в том числе когда удалён весь слайс.
 func Cut(data []int, from, to int) ([]int, error) {
-	panic("TODO: реализуйте Cut")
+	if data == nil {
+		return nil, nil
+	}
+	if from < 0 || to < from || len(data) < to {
+		return nil, ErrRange
+	}
+
+	copy(data[from:], data[to:])
+	for i := len(data) - (to - from); i < len(data); i++ {
+		data[i] = 0
+	}
+	return data[:len(data)-(to-from)], nil
 }
+
+// 0 1 2 3 4 5 6
+// 0 1 2 4 5 6

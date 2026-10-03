@@ -11,14 +11,19 @@ import "io"
 // при запрещённом "aa" строка "aaaaa" превращается в "****a".
 type Writer struct {
 	// Объявите здесь поля, которые нужны вашей реализации.
+	banned []string
+	dst    io.Writer
 }
 
 // New возвращает Writer, пишущий в dst с заменой слов из banned.
 //
 // Пустые строки в banned игнорируются. Banned может быть nil — тогда
 // поток пишется без изменений.
-func New(dst io.Writer, banned []string) *Writer {
-	panic("TODO: реализуйте New")
+func New(dst io.Writer, banned []string) (res *Writer) {
+	res.banned = banned
+	res.dst = dst
+
+	return
 }
 
 // Write пишет p в обёрнутый writer, заменив запрещённые слова звёздочками.
